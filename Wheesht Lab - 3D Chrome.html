@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wheesht — 3D Chrome Variation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{ --bg:#F4EEE3; --ink:#1A1A1A; --yellow:#F5C800; --red:#E8272A; --ink2:#5A554C;
+    --disp:'Bricolage Grotesque',sans-serif; --body:'Hanken Grotesk',sans-serif; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{ font-family:var(--body); color:#fff; min-height:100vh;
+    background:radial-gradient(130% 90% at 50% 0%, #313029 0%, #14130f00 80%), #100f0d; padding:34px 22px 70px; }
+  .wrap{max-width:1100px;margin:0 auto;}
+  h1{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;font-size:34px;margin:0 0 4px;}
+  .sub{color:#b9b1a3;font-weight:600;font-size:15px;margin-bottom:26px;max-width:620px;}
+  .hero{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;
+    background:radial-gradient(120% 120% at 35% 20%, #2a2f36, #15181c);border-radius:28px;padding:26px;
+    box-shadow:0 30px 70px -24px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);margin-bottom:14px;}
+  .pedestal{display:flex;flex-direction:column;align-items:center;}
+  .pill{display:inline-block;background:var(--yellow);color:var(--ink);font-weight:800;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin:0 auto 18px;}
+  .center{text-align:center;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:16px;margin-top:26px;}
+  .cell{background:radial-gradient(120% 120% at 35% 20%, #2a2f36, #15181c);border-radius:20px;padding:14px 12px 16px;
+    display:flex;flex-direction:column;align-items:center;box-shadow:0 18px 40px -22px rgba(0,0,0,.7);}
+  .cell .name{font-family:var(--disp);font-weight:800;font-size:16px;color:#fff;text-transform:capitalize;margin-top:4px;}
+  .cell .meta{font-size:11px;font-weight:700;color:#9aa3ad;letter-spacing:.03em;}
+  .cell.scot{background:radial-gradient(120% 120% at 35% 20%, #0c57bd, #06316c);}
+  .secthead{font-family:var(--disp);font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    color:#b9b1a3;margin:34px 0 12px;}
+  .sizes{display:flex;align-items:flex-end;gap:18px;background:radial-gradient(120% 120% at 35% 20%, #2a2f36, #15181c);
+    border-radius:20px;padding:22px 24px;flex-wrap:wrap;}
+  .sizes .s{display:flex;flex-direction:column;align-items:center;gap:6px;color:#9aa3ad;font-weight:700;font-size:11px;}
+  .copy{max-width:560px;text-align:center;color:#cfd3d8;font-weight:600;font-size:14px;line-height:1.5;margin:14px auto 0;}
+  .copy b{color:#fff;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Wheesht — 3D Chrome (variation C)</h1>
+    <div class="sub">A 45° three-quarter view with real metallic shading: spherical chamber, cylindrical mouthpiece, a 3D finger-grip ring. Big glossy eyes, arms, legs, ref boots — and a lot of movement.</div>
+    <div id="root"></div>
+  </div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script type="text/babel" src="static/app/wheesht-chrome.jsx"></script>
+  <script type="text/babel">
+    const WC3 = window.WheeshtChrome;
+    const MOODS = [
+      ['neutral','idle + breathe'],['happy','arms sway'],['celebrating','arms up · sparks'],
+      ['shocked','recoil'],['nervous','sweat · jitter'],['confident','smug · toot'],
+      ['angry','red card · steam'],['crying','tears'],['mischievous','the glint'],
+      ['scottish','TAM ON · wave'],
+    ];
+    function Lab(){
+      return (
+        <React.Fragment>
+          <div className="hero">
+            <div className="center">
+              <span className="pill">Variation C · 45° 3D chrome</span>
+              <WC3 mood="confident" size={300} animate />
+              <div className="copy">Polished to a mirror finish and never quite still — he breathes, blinks, sways his arms and gives the whistle a wee toot. Tell me if this is the one and I'll wire him through the whole app.</div>
+            </div>
+          </div>
+
+          <div className="secthead">The full range — all heavily animated</div>
+          <div className="grid">
+            {MOODS.map(([m,meta])=>(
+              <div key={m} className={'cell'+(m==='scottish'?' scot':'')}>
+                <WC3 mood={m} size={195} animate />
+                <div className="name">{m}</div>
+                <div className="meta">{meta}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="secthead">Holds up at every size</div>
+          <div className="sizes">
+            {[40,56,80,120,180].map(s=>(
+              <div className="s" key={s}><WC3 mood="happy" size={s} animate /><span>{s}px</span></div>
+            ))}
+          </div>
+        </React.Fragment>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Lab/>);
+  </script>
+</body>
+</html>
